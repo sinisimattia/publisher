@@ -1,4 +1,4 @@
-# Publisher 🗞️
+# vue-publisher 🗞️
 ## A rich-text editor for Vue.js
 
 Built on top of [TipTap](https://tiptap.dev). Kudos to them as well.
@@ -8,7 +8,7 @@ Built on top of [TipTap](https://tiptap.dev). Kudos to them as well.
 Get *Publisher* as an NPM package:
 
 ```bash
-npm i -S [PACKAGE NAME]
+npm i -S vue-publisher
 ```
 
 ### Usage
@@ -25,7 +25,7 @@ The goal here is to keep everything as simple as possible, in fact, with just **
 
 <script lang="ts">
 import Vue from 'vue';
-import { Publisher, Reader } from '[PACKAGE NAME]';
+import { Publisher, Reader } from 'vue-publisher';
 
 export default Vue.extend({
   name: 'ExampleApp',
