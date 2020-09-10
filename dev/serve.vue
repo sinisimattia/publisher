@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue';
-import { Publisher } from '@/entry';
+import { Publisher, Reader } from '@/entry';
 
 export default Vue.extend({
   name: 'ServeDev',
@@ -11,6 +11,7 @@ export default Vue.extend({
   },
   components: {
     Publisher,
+    Reader,
   }
 });
 </script>
@@ -18,5 +19,6 @@ export default Vue.extend({
 <template>
   <div id="app">
     <Publisher v-model="result" />
+    <Reader v-model="result" />
   </div>
 </template>
