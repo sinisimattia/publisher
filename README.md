@@ -8,7 +8,7 @@ Built on top of [TipTap](https://tiptap.dev). Kudos to them as well.
 Get *Publisher* as an NPM package:
 
 ```bash
-npm i -S [NAME]
+npm i -S [PACKAGE NAME]
 ```
 
 ### Usage
