@@ -1,5 +1,5 @@
 {
-  "name": "publisher",
+  "name": "vue-publisher",
   "version": "1.0.0",
   "description": "",
   "main": "dist/publisher.ssr.js",
