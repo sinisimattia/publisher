@@ -4,6 +4,11 @@ import { Publisher } from '@/entry';
 
 export default Vue.extend({
   name: 'ServeDev',
+  data(){
+    return {
+      result: {},
+    }
+  },
   components: {
     Publisher,
   }
@@ -12,6 +17,8 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <Publisher />
+    <Publisher v-model="result" />
+
+    <textarea v-model="result" />
   </div>
 </template>
