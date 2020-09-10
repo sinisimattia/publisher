@@ -18,7 +18,5 @@ export default Vue.extend({
 <template>
   <div id="app">
     <Publisher v-model="result" />
-
-    <textarea v-model="result" />
   </div>
 </template>
