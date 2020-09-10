@@ -29,6 +29,11 @@ export default {
     EditorMenuBar,
     EditorContent,
   },
+  props: {
+    value: {
+      type: Object
+    }
+  },
   data() {
     return {
       editor: new Editor({
@@ -37,8 +42,8 @@ export default {
           new Italic(),
           new Blockquote(),
         ],
-        onUpdate({getJSON}){
-          //
+        onUpdate: ({getJSON}) => {
+          this.$emit('input', getJSON())
         }
       }),
     }
