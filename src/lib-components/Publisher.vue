@@ -30,9 +30,7 @@ export default {
     EditorContent,
   },
   props: {
-    value: {
-      type: Object
-    }
+    value: Object
   },
   data() {
     return {
