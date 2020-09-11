@@ -1,6 +1,7 @@
 {
   "name": "vue-publisher",
-  "version": "1.0.4",
+  "version": "1.0.5",
+  "license": "MIT",
   "description": "",
   "main": "dist/publisher.ssr.js",
   "browser": "dist/publisher.esm.js",
