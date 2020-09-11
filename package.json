@@ -2,7 +2,23 @@
   "name": "vue-publisher",
   "version": "1.0.6",
   "license": "MIT",
-  "description": "",
+  "description": "A rich-text editor in just 2 tags",
+  "author": {
+    "name": "Mattia Sinisi",
+    "email": "mattia@snisni.it",
+    "url": "https://mattia.codes"
+  },
+  "keywords": [
+    "text",
+    "editor",
+    "vue",
+    "tiptap"
+  ],
+  "repository": "github:sinisimattia/vue-publisher",
+  "bugs": {
+    "url": "https://github.com/sinisimattia/vue-publisher/issues",
+    "email": "team@snisni.it"
+  },
   "main": "dist/publisher.ssr.js",
   "browser": "dist/publisher.esm.js",
   "module": "dist/publisher.esm.js",
