@@ -18,7 +18,9 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <Publisher v-model="result" />
+    <Publisher v-model="result">
+      <template #bold>Bold</template>
+    </Publisher>
     <Reader v-model="result" />
   </div>
 </template>
