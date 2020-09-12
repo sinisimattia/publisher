@@ -165,7 +165,6 @@ var __vue_render__ = function __vue_render__() {
   return _c('div', {
     staticClass: "editor"
   }, [_c('editor-menu-bar', {
-    staticClass: "commands",
     attrs: {
       "editor": _vm.editor
     },
@@ -175,10 +174,13 @@ var __vue_render__ = function __vue_render__() {
         var commands = ref.commands;
         var isActive = ref.isActive;
         return [_c('div', {
-          staticClass: "internal"
+          staticClass: "commands"
         }, [_c('button', {
           class: {
             'is-active': isActive.bold()
+          },
+          attrs: {
+            "type": "button"
           },
           on: {
             "click": commands.bold
@@ -187,12 +189,18 @@ var __vue_render__ = function __vue_render__() {
           class: {
             'is-active': isActive.italic()
           },
+          attrs: {
+            "type": "button"
+          },
           on: {
             "click": commands.italic
           }
         }, [_c('i', [_vm._v("I")])]), _vm._v(" "), _c('button', {
           class: {
             'is-active': isActive.blockquote()
+          },
+          attrs: {
+            "type": "button"
           },
           on: {
             "click": commands.blockquote
@@ -217,7 +225,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-2f46af1a";
+var __vue_module_identifier__ = "data-v-3a302e8d";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

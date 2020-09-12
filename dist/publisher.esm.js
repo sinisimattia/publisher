@@ -120,7 +120,6 @@ var __vue_render__ = function () {
   return _c('div', {
     staticClass: "editor"
   }, [_c('editor-menu-bar', {
-    staticClass: "commands",
     attrs: {
       "editor": _vm.editor
     },
@@ -130,10 +129,13 @@ var __vue_render__ = function () {
         var commands = ref.commands;
         var isActive = ref.isActive;
         return [_c('div', {
-          staticClass: "internal"
+          staticClass: "commands"
         }, [_c('button', {
           class: {
             'is-active': isActive.bold()
+          },
+          attrs: {
+            "type": "button"
           },
           on: {
             "click": commands.bold
@@ -142,12 +144,18 @@ var __vue_render__ = function () {
           class: {
             'is-active': isActive.italic()
           },
+          attrs: {
+            "type": "button"
+          },
           on: {
             "click": commands.italic
           }
         }, [_c('i', [_vm._v("I")])]), _vm._v(" "), _c('button', {
           class: {
             'is-active': isActive.blockquote()
+          },
+          attrs: {
+            "type": "button"
           },
           on: {
             "click": commands.blockquote
