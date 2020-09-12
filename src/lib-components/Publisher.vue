@@ -3,15 +3,21 @@
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="commands">
         <button type="button" :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
-          <b>B</b>
+          <slot name="bold">
+            <b>B</b>
+          </slot>
         </button>
 
         <button type="button" :class="{ 'is-active': isActive.italic() }" @click="commands.italic">
-          <i>I</i>
+          <slot name ="italic">
+            <i>I</i>
+          </slot>
         </button>
 
         <button type="button" :class="{ 'is-active': isActive.blockquote() }" @click="commands.blockquote">
-          Q
+          <slot name ="blockquote">
+            <spam>Q</spam>
+          </slot>
         </button>
       </div>
     </editor-menu-bar>
