@@ -47,35 +47,30 @@ export default Vue.extend({
 These components provide useful CSS classes to customize the look of your editor. The class structure is as follows:
 
 ```scss
-// The external component
-Publisher {
-    // The editor's internal container
-    .editor {
-        // The commands container
-        .commands {
-            // The commands container
-            .internal {
-                // The single command button
-                .button {
-                    // A button when its property is activated
-                    &.is-active{
-                        //
-                    }
-                }
+// The editor's internal container
+.editor {
+    // The commands container
+    .internal.commands {
+        // The single command button
+        button {
+            background-color: red;
+            // A button when its property is activated
+            &.is-active {
+                background-color: green;
             }
         }
-        // The editor itself
-        .content {
-            //
-        }
+    }
+    // The editor itself
+    .content {
+        color: black;
     }
 }
 
 // The external component
-Reader {
+.reader {
     // The content
     .content {
-        // All the tags here
+        color: black;
     }
 }
 ```
