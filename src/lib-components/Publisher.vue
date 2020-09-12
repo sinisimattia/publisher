@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
-    <editor-menu-bar class="commands" :editor="editor" v-slot="{ commands, isActive }">
-      <div class="internal">
+    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+      <div class="commands">
         <button type="button" :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
           <b>B</b>
         </button>

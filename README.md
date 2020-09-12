@@ -50,7 +50,7 @@ These components provide useful CSS classes to customize the look of your editor
 // The editor's internal container
 .editor {
     // The commands container
-    .internal.commands {
+    .commands {
         // The single command button
         button {
             background-color: red;
