@@ -1,5 +1,5 @@
 import { EditorMenuBar, EditorContent, Editor } from 'tiptap';
-import { Bold, Italic, Blockquote } from 'tiptap-extensions';
+import { Bold, Italic, Blockquote, Heading } from 'tiptap-extensions';
 import { Renderer } from 'prosemirror-to-html-js';
 
 //
@@ -15,7 +15,9 @@ var script = {
   data() {
     return {
       editor: new Editor({
-        extensions: [new Bold(), new Italic(), new Blockquote()],
+        extensions: [new Bold(), new Italic(), new Blockquote(), new Heading({
+          levels: [1, 2, 3]
+        })],
         onUpdate: ({
           getJSON
         }) => {
@@ -142,6 +144,54 @@ var __vue_render__ = function () {
         return [_c('div', {
           staticClass: "commands"
         }, [_c('button', {
+          class: {
+            'is-active': isActive.heading({
+              level: 1
+            })
+          },
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function ($event) {
+              return commands.heading({
+                level: 1
+              });
+            }
+          }
+        }, [_vm._t("h1", [_c('span', [_vm._v("H1")])])], 2), _vm._v(" "), _c('button', {
+          class: {
+            'is-active': isActive.heading({
+              level: 2
+            })
+          },
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function ($event) {
+              return commands.heading({
+                level: 2
+              });
+            }
+          }
+        }, [_vm._t("h2", [_c('span', [_vm._v("H2")])])], 2), _vm._v(" "), _c('button', {
+          class: {
+            'is-active': isActive.heading({
+              level: 3
+            })
+          },
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function ($event) {
+              return commands.heading({
+                level: 3
+              });
+            }
+          }
+        }, [_vm._t("h3", [_c('span', [_vm._v("H3")])])], 2), _vm._v(" "), _c('button', {
           class: {
             'is-active': isActive.bold()
           },

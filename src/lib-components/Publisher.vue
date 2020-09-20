@@ -2,6 +2,36 @@
   <div class="editor">
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="commands">
+        <button
+          type="button"
+          :class="{ 'is-active': isActive.heading({level: 1}) }"
+          @click="commands.heading({level: 1})"
+        >
+          <slot name="h1">
+            <span>H1</span>
+          </slot>
+        </button>
+
+        <button
+          type="button"
+          :class="{ 'is-active': isActive.heading({level: 2}) }"
+          @click="commands.heading({level: 2})"
+        >
+          <slot name="h2">
+            <span>H2</span>
+          </slot>
+        </button>
+
+        <button
+          type="button"
+          :class="{ 'is-active': isActive.heading({level: 3}) }"
+          @click="commands.heading({level: 3})"
+        >
+          <slot name="h3">
+            <span>H3</span>
+          </slot>
+        </button>
+
         <button type="button" :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
           <slot name="bold">
             <b>B</b>
@@ -32,7 +62,7 @@
 
 <script>
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
-import { Bold, Italic, Blockquote } from "tiptap-extensions";
+import { Bold, Italic, Blockquote, Heading } from "tiptap-extensions";
 
 export default {
   components: {
@@ -45,7 +75,14 @@ export default {
   data() {
     return {
       editor: new Editor({
-        extensions: [new Bold(), new Italic(), new Blockquote()],
+        extensions: [
+          new Bold(),
+          new Italic(),
+          new Blockquote(),
+          new Heading({
+            levels: [1, 2, 3],
+          }),
+        ],
         onUpdate: ({ getJSON }) => {
           this.$emit("input", getJSON());
         },

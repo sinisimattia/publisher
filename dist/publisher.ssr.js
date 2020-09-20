@@ -66,7 +66,9 @@ var script = {
 
     return {
       editor: new tiptap.Editor({
-        extensions: [new tiptapExtensions.Bold(), new tiptapExtensions.Italic(), new tiptapExtensions.Blockquote()],
+        extensions: [new tiptapExtensions.Bold(), new tiptapExtensions.Italic(), new tiptapExtensions.Blockquote(), new tiptapExtensions.Heading({
+          levels: [1, 2, 3]
+        })],
         onUpdate: function onUpdate(_ref) {
           var getJSON = _ref.getJSON;
 
@@ -186,6 +188,54 @@ var __vue_render__ = function __vue_render__() {
           staticClass: "commands"
         }, [_c('button', {
           class: {
+            'is-active': isActive.heading({
+              level: 1
+            })
+          },
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function click($event) {
+              return commands.heading({
+                level: 1
+              });
+            }
+          }
+        }, [_vm._t("h1", [_c('span', [_vm._v("H1")])])], 2), _vm._v(" "), _c('button', {
+          class: {
+            'is-active': isActive.heading({
+              level: 2
+            })
+          },
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function click($event) {
+              return commands.heading({
+                level: 2
+              });
+            }
+          }
+        }, [_vm._t("h2", [_c('span', [_vm._v("H2")])])], 2), _vm._v(" "), _c('button', {
+          class: {
+            'is-active': isActive.heading({
+              level: 3
+            })
+          },
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function click($event) {
+              return commands.heading({
+                level: 3
+              });
+            }
+          }
+        }, [_vm._t("h3", [_c('span', [_vm._v("H3")])])], 2), _vm._v(" "), _c('button', {
+          class: {
             'is-active': isActive.bold()
           },
           attrs: {
@@ -234,7 +284,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-2f1e6239";
+var __vue_module_identifier__ = "data-v-185e30e0";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
