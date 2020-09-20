@@ -9,13 +9,17 @@
         </button>
 
         <button type="button" :class="{ 'is-active': isActive.italic() }" @click="commands.italic">
-          <slot name ="italic">
+          <slot name="italic">
             <i>I</i>
           </slot>
         </button>
 
-        <button type="button" :class="{ 'is-active': isActive.blockquote() }" @click="commands.blockquote">
-          <slot name ="blockquote">
+        <button
+          type="button"
+          :class="{ 'is-active': isActive.blockquote() }"
+          @click="commands.blockquote"
+        >
+          <slot name="blockquote">
             <spam>Q</spam>
           </slot>
         </button>
@@ -27,8 +31,8 @@
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
-import { Bold, Italic, Blockquote } from 'tiptap-extensions'
+import { Editor, EditorContent, EditorMenuBar } from "tiptap";
+import { Bold, Italic, Blockquote } from "tiptap-extensions";
 
 export default {
   components: {
@@ -36,24 +40,29 @@ export default {
     EditorContent,
   },
   props: {
-    value: Object
+    value: Object,
   },
   data() {
     return {
       editor: new Editor({
-        extensions: [
-          new Bold(),
-          new Italic(),
-          new Blockquote(),
-        ],
-        onUpdate: ({getJSON}) => {
-          this.$emit('input', getJSON())
-        }
+        extensions: [new Bold(), new Italic(), new Blockquote()],
+        onUpdate: ({ getJSON }) => {
+          this.$emit("input", getJSON());
+        },
       }),
-    }
+    };
   },
   beforeDestroy() {
-    this.editor.destroy()
+    this.editor.destroy();
   },
-}
+  watch: {
+    value: {
+      immediate: true,
+      deep: true,
+      handler(value) {
+        this.$emit("input", value)
+      },
+    },
+  },
+};
 </script>
