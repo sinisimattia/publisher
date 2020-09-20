@@ -60,8 +60,7 @@ export default {
       immediate: true,
       deep: true,
       handler(value) {
-        this.editor.setContent(value);
-        this.$emit("input", value);
+        this.editor.setContent(value, true);
       },
     },
   },
