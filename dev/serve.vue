@@ -21,6 +21,11 @@ export default Vue.extend({
     <Publisher v-model="result">
       <template #bold>Bold</template>
     </Publisher>
+    <hr>
+    <Publisher v-model="result">
+      <template #bold>Bold</template>
+    </Publisher>
+    <hr>
     <Reader v-model="result" />
   </div>
 </template>
