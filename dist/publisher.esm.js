@@ -19,7 +19,7 @@ var script = {
         onUpdate: ({
           getJSON
         }) => {
-          this.$emit('input', getJSON());
+          this.$emit("input", getJSON());
         }
       })
     };
@@ -27,8 +27,19 @@ var script = {
 
   beforeDestroy() {
     this.editor.destroy();
-  }
+  },
 
+  watch: {
+    value: {
+      immediate: true,
+      deep: true,
+
+      handler(value) {
+        this.editor.setContent(value);
+      }
+
+    }
+  }
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -140,7 +151,7 @@ var __vue_render__ = function () {
           on: {
             "click": commands.bold
           }
-        }, [_c('b', [_vm._v("B")])]), _vm._v(" "), _c('button', {
+        }, [_vm._t("bold", [_c('b', [_vm._v("B")])])], 2), _vm._v(" "), _c('button', {
           class: {
             'is-active': isActive.italic()
           },
@@ -150,7 +161,7 @@ var __vue_render__ = function () {
           on: {
             "click": commands.italic
           }
-        }, [_c('i', [_vm._v("I")])]), _vm._v(" "), _c('button', {
+        }, [_vm._t("italic", [_c('i', [_vm._v("I")])])], 2), _vm._v(" "), _c('button', {
           class: {
             'is-active': isActive.blockquote()
           },
@@ -160,9 +171,9 @@ var __vue_render__ = function () {
           on: {
             "click": commands.blockquote
           }
-        }, [_vm._v("\n        Q\n      ")])])];
+        }, [_vm._t("blockquote", [_c('span', [_vm._v("Q")])])], 2)])];
       }
-    }])
+    }], null, true)
   }), _vm._v(" "), _c('editor-content', {
     staticClass: "content",
     attrs: {

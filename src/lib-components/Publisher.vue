@@ -20,7 +20,7 @@
           @click="commands.blockquote"
         >
           <slot name="blockquote">
-            <spam>Q</spam>
+            <span>Q</span>
           </slot>
         </button>
       </div>
@@ -60,7 +60,7 @@ export default {
       immediate: true,
       deep: true,
       handler(value) {
-        this.editor.setContent(value, true);
+        this.editor.setContent(value);
       },
     },
   },
