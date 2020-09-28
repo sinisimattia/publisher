@@ -56,7 +56,8 @@ function _nonIterableRest() {
 var script = {
   components: {
     EditorMenuBar: tiptap.EditorMenuBar,
-    EditorContent: tiptap.EditorContent
+    EditorContent: tiptap.EditorContent,
+    EditorMenuBubble: tiptap.EditorMenuBubble
   },
   props: {
     value: Object
@@ -68,17 +69,40 @@ var script = {
       editor: new tiptap.Editor({
         extensions: [new tiptapExtensions.Bold(), new tiptapExtensions.Italic(), new tiptapExtensions.Blockquote(), new tiptapExtensions.Heading({
           levels: [1, 2, 3]
-        })],
+        }), new tiptapExtensions.Link()],
         onUpdate: function onUpdate(_ref) {
           var getJSON = _ref.getJSON;
 
           _this.$emit("input", getJSON());
         }
-      })
+      }),
+      linkUrl: null,
+      linkMenuIsActive: false
     };
   },
   beforeDestroy: function beforeDestroy() {
     this.editor.destroy();
+  },
+  methods: {
+    showLinkMenu: function showLinkMenu(attrs) {
+      var _this2 = this;
+
+      this.linkUrl = attrs.href;
+      this.linkMenuIsActive = true;
+      this.$nextTick(function () {
+        _this2.$refs.linkInput.focus();
+      });
+    },
+    hideLinkMenu: function hideLinkMenu() {
+      this.linkUrl = null;
+      this.linkMenuIsActive = false;
+    },
+    setLinkUrl: function setLinkUrl(command, url) {
+      command({
+        href: url
+      });
+      this.hideLinkMenu();
+    }
   },
   watch: {
     value: {
@@ -162,6 +186,46 @@ var script = {
         }
     }
     return script;
+}function createInjectorSSR(context) {
+    if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__;
+    }
+    if (!context)
+        return () => { };
+    if (!('styles' in context)) {
+        context._styles = context._styles || {};
+        Object.defineProperty(context, 'styles', {
+            enumerable: true,
+            get: () => context._renderStyles(context._styles)
+        });
+        context._renderStyles = context._renderStyles || renderStyles;
+    }
+    return (id, style) => addStyle(id, style, context);
+}
+function addStyle(id, css, context) {
+    const group =  css.media || 'default' ;
+    const style = context._styles[group] || (context._styles[group] = { ids: [], css: '' });
+    if (!style.ids.includes(id)) {
+        style.media = css.media;
+        style.ids.push(id);
+        let code = css.source;
+        style.css += code + '\n';
+    }
+}
+function renderStyles(styles) {
+    let css = '';
+    for (const key in styles) {
+        const style = styles[key];
+        css +=
+            '<style data-vue-ssr-id="' +
+                Array.from(style.ids).join(' ') +
+                '"' +
+                (style.media ? ' media="' + style.media + '"' : '') +
+                '>' +
+                style.css +
+                '</style>';
+    }
+    return css;
 }/* script */
 var __vue_script__ = script;
 /* template */
@@ -175,7 +239,80 @@ var __vue_render__ = function __vue_render__() {
 
   return _c('div', {
     staticClass: "editor"
-  }, [_c('editor-menu-bar', {
+  }, [_c('editor-menu-bubble', {
+    staticClass: "menububble",
+    attrs: {
+      "editor": _vm.editor
+    },
+    on: {
+      "hide": _vm.hideLinkMenu
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(ref) {
+        var commands = ref.commands;
+        var isActive = ref.isActive;
+        var getMarkAttrs = ref.getMarkAttrs;
+        var menu = ref.menu;
+        return [_c('div', {
+          staticClass: "menububble",
+          class: {
+            'is-active': menu.isActive
+          },
+          style: "left: " + menu.left + "px; bottom: " + menu.bottom + "px;"
+        }, [_vm.linkMenuIsActive ? _c('form', {
+          on: {
+            "submit": function submit($event) {
+              $event.preventDefault();
+              return _vm.setLinkUrl(commands.link, _vm.linkUrl);
+            }
+          }
+        }, [_c('input', {
+          directives: [{
+            name: "model",
+            rawName: "v-model",
+            value: _vm.linkUrl,
+            expression: "linkUrl"
+          }],
+          ref: "linkInput",
+          staticClass: "input",
+          attrs: {
+            "type": "search",
+            "placeholder": "https://"
+          },
+          domProps: {
+            "value": _vm.linkUrl
+          },
+          on: {
+            "keydown": function keydown($event) {
+              if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) {
+                return null;
+              }
+
+              return _vm.hideLinkMenu($event);
+            },
+            "input": function input($event) {
+              if ($event.target.composing) {
+                return;
+              }
+
+              _vm.linkUrl = $event.target.value;
+            }
+          }
+        })]) : [_c('button', {
+          staticClass: "button",
+          class: {
+            'is-active': isActive.link()
+          },
+          on: {
+            "click": function click($event) {
+              _vm.showLinkMenu(getMarkAttrs('link'));
+            }
+          }
+        }, [_c('span', [_vm._t("link", [_vm._v("Add link")])], 2)])]], 2)];
+      }
+    }])
+  }), _vm._ssrNode(" "), _c('editor-menu-bar', {
     attrs: {
       "editor": _vm.editor
     },
@@ -278,26 +415,30 @@ var __vue_render__ = function __vue_render__() {
 var __vue_staticRenderFns__ = [];
 /* style */
 
-var __vue_inject_styles__ = undefined;
+var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
+  if (!inject) return;
+  inject("data-v-ab9bce42_0", {
+    source: ".editor[data-v-ab9bce42]{position:relative}.menububble[data-v-ab9bce42]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-ab9bce42]{opacity:1;visibility:visible}",
+    map: undefined,
+    media: undefined
+  });
+};
 /* scoped */
 
-var __vue_scope_id__ = undefined;
+
+var __vue_scope_id__ = "data-v-ab9bce42";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-185e30e0";
+var __vue_module_identifier__ = "data-v-ab9bce42";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
-/* style inject */
-
-/* style inject SSR */
-
 /* style inject shadow dom */
 
 var __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);//
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, createInjectorSSR, undefined);//
 var script$1 = {
   props: {
     value: Object

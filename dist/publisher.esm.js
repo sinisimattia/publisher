@@ -1,12 +1,13 @@
-import { EditorMenuBar, EditorContent, Editor } from 'tiptap';
-import { Bold, Italic, Blockquote, Heading } from 'tiptap-extensions';
+import { EditorMenuBar, EditorContent, EditorMenuBubble, Editor } from 'tiptap';
+import { Bold, Italic, Blockquote, Heading, Link } from 'tiptap-extensions';
 import { Renderer } from 'prosemirror-to-html-js';
 
 //
 var script = {
   components: {
     EditorMenuBar,
-    EditorContent
+    EditorContent,
+    EditorMenuBubble
   },
   props: {
     value: Object
@@ -17,13 +18,15 @@ var script = {
       editor: new Editor({
         extensions: [new Bold(), new Italic(), new Blockquote(), new Heading({
           levels: [1, 2, 3]
-        })],
+        }), new Link()],
         onUpdate: ({
           getJSON
         }) => {
           this.$emit("input", getJSON());
         }
-      })
+      }),
+      linkUrl: null,
+      linkMenuIsActive: false
     };
   },
 
@@ -31,6 +34,28 @@ var script = {
     this.editor.destroy();
   },
 
+  methods: {
+    showLinkMenu(attrs) {
+      this.linkUrl = attrs.href;
+      this.linkMenuIsActive = true;
+      this.$nextTick(() => {
+        this.$refs.linkInput.focus();
+      });
+    },
+
+    hideLinkMenu() {
+      this.linkUrl = null;
+      this.linkMenuIsActive = false;
+    },
+
+    setLinkUrl(command, url) {
+      command({
+        href: url
+      });
+      this.hideLinkMenu();
+    }
+
+  },
   watch: {
     value: {
       immediate: true,
@@ -119,6 +144,59 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
     return script;
 }
 
+const isOldIE = typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+function createInjector(context) {
+    return (id, style) => addStyle(id, style);
+}
+let HEAD;
+const styles = {};
+function addStyle(id, css) {
+    const group = isOldIE ? css.media || 'default' : id;
+    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+    if (!style.ids.has(id)) {
+        style.ids.add(id);
+        let code = css.source;
+        if (css.map) {
+            // https://developer.chrome.com/devtools/docs/javascript-debugging
+            // this makes source maps inside style tags work properly in Chrome
+            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+            // http://stackoverflow.com/a/26603875
+            code +=
+                '\n/*# sourceMappingURL=data:application/json;base64,' +
+                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                    ' */';
+        }
+        if (!style.element) {
+            style.element = document.createElement('style');
+            style.element.type = 'text/css';
+            if (css.media)
+                style.element.setAttribute('media', css.media);
+            if (HEAD === undefined) {
+                HEAD = document.head || document.getElementsByTagName('head')[0];
+            }
+            HEAD.appendChild(style.element);
+        }
+        if ('styleSheet' in style.element) {
+            style.styles.push(code);
+            style.element.styleSheet.cssText = style.styles
+                .filter(Boolean)
+                .join('\n');
+        }
+        else {
+            const index = style.ids.size - 1;
+            const textNode = document.createTextNode(code);
+            const nodes = style.element.childNodes;
+            if (nodes[index])
+                style.element.removeChild(nodes[index]);
+            if (nodes.length)
+                style.element.insertBefore(textNode, nodes[index]);
+            else
+                style.element.appendChild(textNode);
+        }
+    }
+}
+
 /* script */
 const __vue_script__ = script;
 /* template */
@@ -132,7 +210,80 @@ var __vue_render__ = function () {
 
   return _c('div', {
     staticClass: "editor"
-  }, [_c('editor-menu-bar', {
+  }, [_c('editor-menu-bubble', {
+    staticClass: "menububble",
+    attrs: {
+      "editor": _vm.editor
+    },
+    on: {
+      "hide": _vm.hideLinkMenu
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function (ref) {
+        var commands = ref.commands;
+        var isActive = ref.isActive;
+        var getMarkAttrs = ref.getMarkAttrs;
+        var menu = ref.menu;
+        return [_c('div', {
+          staticClass: "menububble",
+          class: {
+            'is-active': menu.isActive
+          },
+          style: "left: " + menu.left + "px; bottom: " + menu.bottom + "px;"
+        }, [_vm.linkMenuIsActive ? _c('form', {
+          on: {
+            "submit": function ($event) {
+              $event.preventDefault();
+              return _vm.setLinkUrl(commands.link, _vm.linkUrl);
+            }
+          }
+        }, [_c('input', {
+          directives: [{
+            name: "model",
+            rawName: "v-model",
+            value: _vm.linkUrl,
+            expression: "linkUrl"
+          }],
+          ref: "linkInput",
+          staticClass: "input",
+          attrs: {
+            "type": "search",
+            "placeholder": "https://"
+          },
+          domProps: {
+            "value": _vm.linkUrl
+          },
+          on: {
+            "keydown": function ($event) {
+              if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) {
+                return null;
+              }
+
+              return _vm.hideLinkMenu($event);
+            },
+            "input": function ($event) {
+              if ($event.target.composing) {
+                return;
+              }
+
+              _vm.linkUrl = $event.target.value;
+            }
+          }
+        })]) : [_c('button', {
+          staticClass: "button",
+          class: {
+            'is-active': isActive.link()
+          },
+          on: {
+            "click": function ($event) {
+              _vm.showLinkMenu(getMarkAttrs('link'));
+            }
+          }
+        }, [_c('span', [_vm._t("link", [_vm._v("Add link")])], 2)])]], 2)];
+      }
+    }])
+  }), _vm._v(" "), _c('editor-menu-bar', {
     attrs: {
       "editor": _vm.editor
     },
@@ -235,18 +386,24 @@ var __vue_render__ = function () {
 var __vue_staticRenderFns__ = [];
 /* style */
 
-const __vue_inject_styles__ = undefined;
+const __vue_inject_styles__ = function (inject) {
+  if (!inject) return;
+  inject("data-v-ab9bce42_0", {
+    source: ".editor[data-v-ab9bce42]{position:relative}.menububble[data-v-ab9bce42]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-ab9bce42]{opacity:1;visibility:visible}",
+    map: undefined,
+    media: undefined
+  });
+};
 /* scoped */
 
-const __vue_scope_id__ = undefined;
+
+const __vue_scope_id__ = "data-v-ab9bce42";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
 /* functional template */
 
 const __vue_is_functional_template__ = false;
-/* style inject */
-
 /* style inject SSR */
 
 /* style inject shadow dom */
@@ -254,7 +411,7 @@ const __vue_is_functional_template__ = false;
 const __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
 
 //
 var script$1 = {
