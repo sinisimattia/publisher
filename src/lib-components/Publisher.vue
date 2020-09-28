@@ -7,13 +7,13 @@
         :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`"
       >
 
-        <form class="menububble__form" v-if="linkMenuIsActive" @submit.prevent="setLinkUrl(commands.link, linkUrl)">
-          <input class="menububble__input" type="search" v-model="linkUrl" placeholder="https://" ref="linkInput" @keydown.esc="hideLinkMenu"/>
+        <form v-if="linkMenuIsActive" @submit.prevent="setLinkUrl(commands.link, linkUrl)">
+          <input class="input" type="search" v-model="linkUrl" placeholder="https://" ref="linkInput" @keydown.esc="hideLinkMenu"/>
         </form>
 
         <template v-else>
           <button
-            class="menububble__button"
+            class="button"
             @click="showLinkMenu(getMarkAttrs('link'))"
             :class="{ 'is-active': isActive.link() }"
           >
@@ -151,6 +151,21 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.editor {
+  position: relative;
+}
 
+.menububble {
+  position: absolute;
+  z-index: 20;
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 </style>
