@@ -2,7 +2,7 @@
 	<div>
 		<ul class="editor">
 			<li class="content" v-for="(item, i) in value" :key="i">
-				<span class="item">{{ item }}</span>
+				<span class="item" v-for="key in Object.keys(item)" :key="key">{{item[key]}}</span>
 				<span class="commands">
 					<slot name="commands">
 						<button type="button" @click="remove(i)">Remove</button>
@@ -11,9 +11,16 @@
 			</li>
 		</ul>
 
-		<form class="insert" @submit.prevent="insert">
+		<form ref="form" class="insert" @submit.prevent="insert">
 			<slot name="new">
-				<input class="input" type="text" v-model="newItem" />
+				<input
+					class="input"
+					type="text"
+					v-for="key in Object.keys(newItem)"
+					:key="key"
+					:placeholder="key"
+					v-model="newItem[key]"
+				/>
 			</slot>
 
 			<slot name="submit">
@@ -27,6 +34,15 @@
 export default {
 	props: {
 		value: Array,
+		default: {
+			type: Object,
+			default: () => {
+				return {
+					type: "",
+					content: "",
+				};
+			},
+		},
 	},
 	watch: {
 		value: {
@@ -38,13 +54,14 @@ export default {
 	},
 	data() {
 		return {
-			newItem: "",
+			newItem: {},
 		};
 	},
 	methods: {
 		insert(e) {
-			this.value.push(this.newItem);
-			this.afterInsert(this.newItem, this.value);
+			let newItem = {...this.newItem}
+			this.value.push(newItem)
+			this.afterInsert(newItem, this.value)
 		},
 		remove(i) {
 			var list = this.value
@@ -52,9 +69,12 @@ export default {
 			this.$emit("input", list)
 		},
 		afterInsert(value, list) {
-			this.newItem = "";
+			this.newItem = {...this.default}
 		},
 		afterRemove(index, list) {},
+	},
+	mounted() {
+		this.newItem = {...this.default}
 	},
 };
 </script>
