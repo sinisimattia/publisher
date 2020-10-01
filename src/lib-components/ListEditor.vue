@@ -2,16 +2,21 @@
 	<div>
 		<ul class="editor">
 			<li class="content" v-for="(item, i) in value" :key="i">
-				<span class="item" v-for="key in Object.keys(item)" :key="key">{{item[key]}}</span>
+				<slot name="item" :item="item">
+					<span class="item" v-for="key in Object.keys(item)" :key="key">{{item[key]}}</span>
+				</slot>
+				
 				<span class="commands">
 					<slot name="commands">
-						<button type="button" @click="remove(i)">Remove</button>
+						<button type="button" @click="remove(i)">
+							<slot name="remove">Remove</slot>
+						</button>
 					</slot>
 				</span>
 			</li>
 		</ul>
 
-		<form ref="form" class="insert" @submit.prevent="insert">
+		<form ref="form" class="commands" @submit.prevent="insert">
 			<slot name="new">
 				<input
 					class="input"

@@ -26,6 +26,10 @@ export default Vue.extend({
     <hr>
     <Reader v-model="result" />
     <hr>
-    <ListEditor v-model="list" :default="{id: '', name: ''}"/>
+    <ListEditor v-model="list" :default="{id: '', name: ''}">
+      <template v-slot:item="{ item }">
+        {{item.name}} (#{{item.id}})
+      </template>
+    </ListEditor>
   </div>
 </template>
