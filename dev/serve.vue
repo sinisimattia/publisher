@@ -7,11 +7,7 @@ export default Vue.extend({
   data(){
     return {
       result: {},
-      list: [
-        "writer",
-        "reader",
-        "admin",
-      ],
+      list: [],
     }
   },
   components: {
