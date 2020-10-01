@@ -579,6 +579,11 @@ var __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 //
 //
 //
+//
+//
+//
+//
+//
 var script$2 = {
   props: {
     value: Array,
@@ -637,9 +642,14 @@ var __vue_render__$2 = function __vue_render__() {
   var _c = _vm._self._c || _h;
 
   return _c('div', [_vm._ssrNode("<ul class=\"editor\">", "</ul>", _vm._l(_vm.value, function (item, i) {
-    return _vm._ssrNode("<li class=\"content\">", "</li>", [_vm._ssrNode(_vm._ssrList(Object.keys(item), function (key) {
-      return "<span class=\"item\">" + _vm._ssrEscape(_vm._s(item[key])) + "</span>";
-    }) + " "), _vm._ssrNode("<span class=\"commands\">", "</span>", [_vm._t("commands", [_c('button', {
+    return _vm._ssrNode("<li class=\"content\">", "</li>", [_vm._t("item", _vm._l(Object.keys(item), function (key) {
+      return _c('span', {
+        key: key,
+        staticClass: "item"
+      }, [_vm._v(_vm._s(item[key]))]);
+    }), {
+      "item": item
+    }), _vm._ssrNode(" "), _vm._ssrNode("<span class=\"commands\">", "</span>", [_vm._t("commands", [_c('button', {
       attrs: {
         "type": "button"
       },
@@ -648,8 +658,8 @@ var __vue_render__$2 = function __vue_render__() {
           return _vm.remove(i);
         }
       }
-    }, [_vm._v("Remove")])])], 2)], 2);
-  }), 0), _vm._ssrNode(" "), _vm._ssrNode("<form class=\"insert\">", "</form>", [_vm._t("new", _vm._l(Object.keys(_vm.newItem), function (key) {
+    }, [_vm._t("remove", [_vm._v("Remove")])], 2)])], 2)], 2);
+  }), 0), _vm._ssrNode(" "), _vm._ssrNode("<form class=\"commands\">", "</form>", [_vm._t("new", _vm._l(Object.keys(_vm.newItem), function (key) {
     return _c('input', {
       directives: [{
         name: "model",
@@ -692,7 +702,7 @@ var __vue_inject_styles__$2 = undefined;
 var __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$2 = "data-v-54917cba";
+var __vue_module_identifier__$2 = "data-v-7cb9d2be";
 /* functional template */
 
 var __vue_is_functional_template__$2 = false;

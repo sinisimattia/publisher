@@ -513,6 +513,11 @@ const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 //
 //
 //
+//
+//
+//
+//
+//
 var script$2 = {
   props: {
     value: Array,
@@ -590,11 +595,13 @@ var __vue_render__$2 = function () {
     return _c('li', {
       key: i,
       staticClass: "content"
-    }, [_vm._l(Object.keys(item), function (key) {
+    }, [_vm._t("item", _vm._l(Object.keys(item), function (key) {
       return _c('span', {
         key: key,
         staticClass: "item"
       }, [_vm._v(_vm._s(item[key]))]);
+    }), {
+      "item": item
     }), _vm._v(" "), _c('span', {
       staticClass: "commands"
     }, [_vm._t("commands", [_c('button', {
@@ -606,10 +613,10 @@ var __vue_render__$2 = function () {
           return _vm.remove(i);
         }
       }
-    }, [_vm._v("Remove")])])], 2)], 2);
+    }, [_vm._t("remove", [_vm._v("Remove")])], 2)])], 2)], 2);
   }), 0), _vm._v(" "), _c('form', {
     ref: "form",
-    staticClass: "insert",
+    staticClass: "commands",
     on: {
       "submit": function ($event) {
         $event.preventDefault();
