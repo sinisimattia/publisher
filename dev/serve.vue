@@ -26,6 +26,6 @@ export default Vue.extend({
     <hr>
     <Reader v-model="result" />
     <hr>
-    <ListEditor v-model="list" />
+    <ListEditor v-model="list" :default="{id: '', name: ''}"/>
   </div>
 </template>
