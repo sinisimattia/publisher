@@ -1,17 +1,23 @@
 <script lang="ts">
 import Vue from 'vue';
-import { Publisher, Reader } from '@/entry';
+import { Publisher, Reader, ListEditor } from '@/entry';
 
 export default Vue.extend({
   name: 'ServeDev',
   data(){
     return {
       result: {},
+      list: [
+        "writer",
+        "reader",
+        "admin",
+      ],
     }
   },
   components: {
     Publisher,
     Reader,
+    ListEditor,
   }
 });
 </script>
@@ -22,10 +28,8 @@ export default Vue.extend({
       <template #bold>Bold</template>
     </Publisher>
     <hr>
-    <Publisher v-model="result">
-      <template #bold>Bold</template>
-    </Publisher>
-    <hr>
     <Reader v-model="result" />
+    <hr>
+    <ListEditor v-model="list" />
   </div>
 </template>
