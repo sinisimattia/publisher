@@ -1,4 +1,53 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:true});var tiptap=require('tiptap'),tiptapExtensions=require('tiptap-extensions'),prosemirrorToHtmlJs=require('prosemirror-to-html-js');function _slicedToArray(arr, i) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});var tiptap=require('tiptap'),tiptapExtensions=require('tiptap-extensions'),prosemirrorToHtmlJs=require('prosemirror-to-html-js');function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
@@ -498,7 +547,165 @@ var __vue_is_functional_template__$1 = false;
 var __vue_component__$1 = /*#__PURE__*/normalizeComponent({
   render: __vue_render__$1,
   staticRenderFns: __vue_staticRenderFns__$1
-}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,Publisher: __vue_component__,Reader: __vue_component__$1});// eslint-disable-next-line @typescript-eslint/no-explicit-any
+}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var script$2 = {
+  props: {
+    value: Array,
+    default: {
+      type: Object,
+      default: function _default() {
+        return {
+          type: "",
+          content: ""
+        };
+      }
+    }
+  },
+  watch: {
+    value: {
+      immediate: true,
+      handler: function handler(value) {
+        this.$emit("input", value);
+      }
+    }
+  },
+  data: function data() {
+    return {
+      newItem: {}
+    };
+  },
+  methods: {
+    insert: function insert(e) {
+      var newItem = _objectSpread2({}, this.newItem);
+
+      this.value.push(newItem);
+      this.afterInsert(newItem, this.value);
+    },
+    remove: function remove(i) {
+      var list = this.value;
+      list.splice(i, 1);
+      this.$emit("input", list);
+    },
+    afterInsert: function afterInsert(value, list) {
+      this.newItem = _objectSpread2({}, this.default);
+    },
+    afterRemove: function afterRemove(index, list) {}
+  },
+  mounted: function mounted() {
+    this.newItem = _objectSpread2({}, this.default);
+  }
+};/* script */
+var __vue_script__$2 = script$2;
+/* template */
+
+var __vue_render__$2 = function __vue_render__() {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c('div', [_vm._ssrNode("<ul class=\"editor\">", "</ul>", _vm._l(_vm.value, function (item, i) {
+    return _vm._ssrNode("<li class=\"content\">", "</li>", [_vm._ssrNode(_vm._ssrList(Object.keys(item), function (key) {
+      return "<span class=\"item\">" + _vm._ssrEscape(_vm._s(item[key])) + "</span>";
+    }) + " "), _vm._ssrNode("<span class=\"commands\">", "</span>", [_vm._t("commands", [_c('button', {
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.remove(i);
+        }
+      }
+    }, [_vm._v("Remove")])])], 2)], 2);
+  }), 0), _vm._ssrNode(" "), _vm._ssrNode("<form class=\"insert\">", "</form>", [_vm._t("new", _vm._l(Object.keys(_vm.newItem), function (key) {
+    return _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.newItem[key],
+        expression: "newItem[key]"
+      }],
+      key: key,
+      staticClass: "input",
+      attrs: {
+        "type": "text",
+        "placeholder": key
+      },
+      domProps: {
+        "value": _vm.newItem[key]
+      },
+      on: {
+        "input": function input($event) {
+          if ($event.target.composing) {
+            return;
+          }
+
+          _vm.$set(_vm.newItem, key, $event.target.value);
+        }
+      }
+    });
+  })), _vm._ssrNode(" "), _vm._t("submit", [_c('button', {
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Add")])])], 2)], 2);
+};
+
+var __vue_staticRenderFns__$2 = [];
+/* style */
+
+var __vue_inject_styles__$2 = undefined;
+/* scoped */
+
+var __vue_scope_id__$2 = undefined;
+/* module identifier */
+
+var __vue_module_identifier__$2 = "data-v-54917cba";
+/* functional template */
+
+var __vue_is_functional_template__$2 = false;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+var __vue_component__$2 = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__$2,
+  staticRenderFns: __vue_staticRenderFns__$2
+}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,Publisher: __vue_component__,Reader: __vue_component__$1,ListEditor: __vue_component__$2});// eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 // install function executed by Vue.use()
 var install = function installPublisher(Vue) {
@@ -535,4 +742,4 @@ var plugin = {
     GlobalVue.use(plugin);
   }
 } // Default export is library as a whole, registered via Vue.use()
-exports.Publisher=__vue_component__;exports.Reader=__vue_component__$1;exports.default=plugin;
+exports.ListEditor=__vue_component__$2;exports.Publisher=__vue_component__;exports.Reader=__vue_component__$1;exports.default=plugin;

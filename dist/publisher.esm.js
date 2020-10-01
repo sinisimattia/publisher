@@ -481,12 +481,206 @@ const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__$1
 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var script$2 = {
+  props: {
+    value: Array,
+    default: {
+      type: Object,
+      default: () => {
+        return {
+          type: "",
+          content: ""
+        };
+      }
+    }
+  },
+  watch: {
+    value: {
+      immediate: true,
+
+      handler(value) {
+        this.$emit("input", value);
+      }
+
+    }
+  },
+
+  data() {
+    return {
+      newItem: {}
+    };
+  },
+
+  methods: {
+    insert(e) {
+      let newItem = { ...this.newItem
+      };
+      this.value.push(newItem);
+      this.afterInsert(newItem, this.value);
+    },
+
+    remove(i) {
+      var list = this.value;
+      list.splice(i, 1);
+      this.$emit("input", list);
+    },
+
+    afterInsert(value, list) {
+      this.newItem = { ...this.default
+      };
+    },
+
+    afterRemove(index, list) {}
+
+  },
+
+  mounted() {
+    this.newItem = { ...this.default
+    };
+  }
+
+};
+
+/* script */
+const __vue_script__$2 = script$2;
+/* template */
+
+var __vue_render__$2 = function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c('div', [_c('ul', {
+    staticClass: "editor"
+  }, _vm._l(_vm.value, function (item, i) {
+    return _c('li', {
+      key: i,
+      staticClass: "content"
+    }, [_vm._l(Object.keys(item), function (key) {
+      return _c('span', {
+        key: key,
+        staticClass: "item"
+      }, [_vm._v(_vm._s(item[key]))]);
+    }), _vm._v(" "), _c('span', {
+      staticClass: "commands"
+    }, [_vm._t("commands", [_c('button', {
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.remove(i);
+        }
+      }
+    }, [_vm._v("Remove")])])], 2)], 2);
+  }), 0), _vm._v(" "), _c('form', {
+    ref: "form",
+    staticClass: "insert",
+    on: {
+      "submit": function ($event) {
+        $event.preventDefault();
+        return _vm.insert($event);
+      }
+    }
+  }, [_vm._t("new", _vm._l(Object.keys(_vm.newItem), function (key) {
+    return _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.newItem[key],
+        expression: "newItem[key]"
+      }],
+      key: key,
+      staticClass: "input",
+      attrs: {
+        "type": "text",
+        "placeholder": key
+      },
+      domProps: {
+        "value": _vm.newItem[key]
+      },
+      on: {
+        "input": function ($event) {
+          if ($event.target.composing) {
+            return;
+          }
+
+          _vm.$set(_vm.newItem, key, $event.target.value);
+        }
+      }
+    });
+  })), _vm._v(" "), _vm._t("submit", [_c('button', {
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Add")])])], 2)]);
+};
+
+var __vue_staticRenderFns__$2 = [];
+/* style */
+
+const __vue_inject_styles__$2 = undefined;
+/* scoped */
+
+const __vue_scope_id__$2 = undefined;
+/* module identifier */
+
+const __vue_module_identifier__$2 = undefined;
+/* functional template */
+
+const __vue_is_functional_template__$2 = false;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__$2,
+  staticRenderFns: __vue_staticRenderFns__$2
+}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
+
 /* eslint-disable import/prefer-default-export */
 
 var components = /*#__PURE__*/Object.freeze({
   __proto__: null,
   Publisher: __vue_component__,
-  Reader: __vue_component__$1
+  Reader: __vue_component__$1,
+  ListEditor: __vue_component__$2
 });
 
 // Import vue components
@@ -507,4 +701,4 @@ const plugin = {
 }; // To auto-install on non-es builds, when vue is found
 
 export default plugin;
-export { __vue_component__ as Publisher, __vue_component__$1 as Reader };
+export { __vue_component__$2 as ListEditor, __vue_component__ as Publisher, __vue_component__$1 as Reader };
