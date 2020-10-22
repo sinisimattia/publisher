@@ -606,6 +606,8 @@ var __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 //
 //
 //
+//
+//
 var script$2 = {
   props: {
     value: Array,
@@ -626,8 +628,14 @@ var script$2 = {
       type: Object,
       default: function _default() {
         return {
-          type: ["type1", "type2"],
-          content: ["content1", "content2"]
+          type: [{
+            name: "Type",
+            value: "type"
+          }],
+          content: [{
+            name: "Content",
+            value: "content"
+          }]
         };
       }
     }
@@ -730,9 +738,11 @@ var __vue_render__$2 = function __vue_render__() {
       return _c('option', {
         key: key + "-choice-" + i,
         domProps: {
-          "value": choice
+          "value": choice.value
         }
-      }, [_vm._v(_vm._s(choice))]);
+      }, [_vm._t("option", [_vm._v(_vm._s(choice.name))], {
+        "option": choice
+      })], 2);
     })], 2);
   }), 0) : _c('span', _vm._l(Object.keys(_vm.newItem), function (key) {
     return _c('input', {
@@ -777,7 +787,7 @@ var __vue_inject_styles__$2 = undefined;
 var __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$2 = "data-v-5bbfc825";
+var __vue_module_identifier__$2 = "data-v-696b87b1";
 /* functional template */
 
 var __vue_is_functional_template__$2 = false;

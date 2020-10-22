@@ -540,6 +540,8 @@ const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 //
 //
 //
+//
+//
 var script$2 = {
   props: {
     value: Array,
@@ -560,8 +562,14 @@ var script$2 = {
       type: Object,
       default: () => {
         return {
-          type: ["type1", "type2"],
-          content: ["content1", "content2"]
+          type: [{
+            name: "Type",
+            value: "type"
+          }],
+          content: [{
+            name: "Content",
+            value: "content"
+          }]
         };
       }
     }
@@ -694,9 +702,11 @@ var __vue_render__$2 = function () {
       return _c('option', {
         key: key + "-choice-" + i,
         domProps: {
-          "value": choice
+          "value": choice.value
         }
-      }, [_vm._v(_vm._s(choice))]);
+      }, [_vm._t("option", [_vm._v(_vm._s(choice.name))], {
+        "option": choice
+      })], 2);
     })], 2);
   }), 0) : _c('span', _vm._l(Object.keys(_vm.newItem), function (key) {
     return _c('input', {
