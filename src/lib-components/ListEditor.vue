@@ -34,7 +34,9 @@
 							</slot>
 						</option>
 
-						<option v-for="(choice, i) in choices[key]" :key="`${key}-choice-${i}`" :value="choice">{{choice}}</option>
+						<option v-for="(choice, i) in choices[key]" :key="`${key}-choice-${i}`" :value="choice.value">
+							<slot name="option" :option="choice">{{choice.name}}</slot>
+						</option>
 					</select>
 				</span>
 
@@ -78,8 +80,18 @@ export default {
 			type: Object,
 			default: () => {
 				return {
-					type: ["type1", "type2"],
-					content: ["content1", "content2"],
+					type: [
+						{
+							name: "Type",
+							value: "type"
+						},
+					],
+					content: [
+						{
+							name: "Content",
+							value: "content"
+						},
+					],
 				}
 			},
 		},

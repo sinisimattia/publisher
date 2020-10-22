@@ -38,12 +38,26 @@ export default Vue.extend({
 			select
 			:default="{ id: '', name: '' }"
 			:choices="{
-				id: ['id_1', 'id_2'],
-				name: ['name_1', 'name_2'],
+				id: [
+					{
+						name: 'First ID',
+						value: 'id_1',
+					},
+				],
+				name: [
+					{
+						name: 'First Name',
+						value: 'name_1',
+					},
+				],
 			}"
 		>
 			<template v-slot:item="{ item }">
 				{{ item.name }} (#{{ item.id }})
+			</template>
+
+			<template v-slot:option="{ option }">
+				{{option.name}} · {{option.value}}
 			</template>
 		</ListEditor>
 	</div>
