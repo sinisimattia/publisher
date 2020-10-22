@@ -584,6 +584,28 @@ var __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var script$2 = {
   props: {
     value: Array,
@@ -593,6 +615,19 @@ var script$2 = {
         return {
           type: "",
           content: ""
+        };
+      }
+    },
+    select: {
+      type: Boolean,
+      default: false
+    },
+    choices: {
+      type: Object,
+      default: function _default() {
+        return {
+          type: ["type1", "type2"],
+          content: ["content1", "content2"]
         };
       }
     }
@@ -659,7 +694,47 @@ var __vue_render__$2 = function __vue_render__() {
         }
       }
     }, [_vm._t("remove", [_vm._v("Remove")])], 2)])], 2)], 2);
-  }), 0), _vm._ssrNode(" "), _vm._ssrNode("<form class=\"commands\">", "</form>", [_vm._t("new", _vm._l(Object.keys(_vm.newItem), function (key) {
+  }), 0), _vm._ssrNode(" "), _vm._ssrNode("<form class=\"commands\">", "</form>", [_vm._t("new", [_vm.select ? _c('span', _vm._l(Object.keys(_vm.newItem), function (key) {
+    return _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.newItem[key],
+        expression: "newItem[key]"
+      }],
+      key: key,
+      staticClass: "input",
+      attrs: {
+        "placeholder": key
+      },
+      on: {
+        "change": function change($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+
+          _vm.$set(_vm.newItem, key, $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }
+      }
+    }, [_c('option', {
+      attrs: {
+        "disabled": "",
+        "selected": ""
+      }
+    }, [_vm._t("defaultSelection", [_vm._v("\n\t\t\t\t\t\t\tSelect " + _vm._s(key) + "\n\t\t\t\t\t\t")], {
+      "selected": key
+    })], 2), _vm._v(" "), _vm._l(_vm.choices[key], function (choice, i) {
+      return _c('option', {
+        key: key + "-choice-" + i,
+        domProps: {
+          "value": choice
+        }
+      }, [_vm._v(_vm._s(choice))]);
+    })], 2);
+  }), 0) : _c('span', _vm._l(Object.keys(_vm.newItem), function (key) {
     return _c('input', {
       directives: [{
         name: "model",
@@ -686,7 +761,7 @@ var __vue_render__$2 = function __vue_render__() {
         }
       }
     });
-  })), _vm._ssrNode(" "), _vm._t("submit", [_c('button', {
+  }), 0)]), _vm._ssrNode(" "), _vm._t("submit", [_c('button', {
     attrs: {
       "type": "submit"
     }
@@ -702,7 +777,7 @@ var __vue_inject_styles__$2 = undefined;
 var __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$2 = "data-v-7cb9d2be";
+var __vue_module_identifier__$2 = "data-v-5bbfc825";
 /* functional template */
 
 var __vue_is_functional_template__$2 = false;
