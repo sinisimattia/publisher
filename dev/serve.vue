@@ -37,10 +37,14 @@ export default Vue.extend({
 			v-model="selectlist"
 			select
 			:default="{ id: '', name: '' }"
-      :choices="{
-        id: ['id_1', 'id_2'],
-        name: ['name_1', 'name_2']  
-      }"
-		></ListEditor>
+			:choices="{
+				id: ['id_1', 'id_2'],
+				name: ['name_1', 'name_2'],
+			}"
+		>
+			<template v-slot:item="{ item }">
+				{{ item.name }} (#{{ item.id }})
+			</template>
+		</ListEditor>
 	</div>
 </template>
