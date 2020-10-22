@@ -33,10 +33,6 @@ export default Vue.extend({
       </template>
     </ListEditor>
 
-    <ListEditor v-model="selectlist" select>
-      <template v-slot:item="{ item }">
-        {{item.name}} (#{{item.id}})
-      </template>
-    </ListEditor>
+    <ListEditor v-model="selectlist" select></ListEditor>
   </div>
 </template>
