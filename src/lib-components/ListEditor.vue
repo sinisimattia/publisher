@@ -22,6 +22,7 @@
 			<slot name="new">
 				<span v-if="select">
 					<select
+						class="input"
 						v-for="key in Object.keys(newItem)"
 						:key="key"
 						:placeholder="key"
