@@ -8,6 +8,7 @@ export default Vue.extend({
     return {
       result: {},
       list: [],
+      selectlist: [],
     }
   },
   components: {
@@ -27,6 +28,12 @@ export default Vue.extend({
     <Reader v-model="result" />
     <hr>
     <ListEditor v-model="list" :default="{id: '', name: ''}">
+      <template v-slot:item="{ item }">
+        {{item.name}} (#{{item.id}})
+      </template>
+    </ListEditor>
+
+    <ListEditor v-model="selectlist" select>
       <template v-slot:item="{ item }">
         {{item.name}} (#{{item.id}})
       </template>
