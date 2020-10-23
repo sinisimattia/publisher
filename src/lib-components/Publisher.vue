@@ -144,7 +144,9 @@ export default {
       immediate: true,
       deep: true,
       handler(value) {
+        let { from, to } =(this.editor.state.selection)
         this.editor.setContent(value);
+        this.editor.setSelection(from, to)
       },
     },
   },
