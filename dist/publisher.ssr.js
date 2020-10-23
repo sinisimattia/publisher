@@ -158,7 +158,11 @@ var script = {
       immediate: true,
       deep: true,
       handler: function handler(value) {
+        var _this$editor$state$se = this.editor.state.selection,
+            from = _this$editor$state$se.from,
+            to = _this$editor$state$se.to;
         this.editor.setContent(value);
+        this.editor.setSelection(from, to);
       }
     }
   }
@@ -466,8 +470,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-ab9bce42_0", {
-    source: ".editor[data-v-ab9bce42]{position:relative}.menububble[data-v-ab9bce42]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-ab9bce42]{opacity:1;visibility:visible}",
+  inject("data-v-42716dfc_0", {
+    source: ".editor[data-v-42716dfc]{position:relative}.menububble[data-v-42716dfc]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-42716dfc]{opacity:1;visibility:visible}",
     map: undefined,
     media: undefined
   });
@@ -475,10 +479,10 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 /* scoped */
 
 
-var __vue_scope_id__ = "data-v-ab9bce42";
+var __vue_scope_id__ = "data-v-42716dfc";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-ab9bce42";
+var __vue_module_identifier__ = "data-v-42716dfc";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

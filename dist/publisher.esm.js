@@ -62,7 +62,12 @@ var script = {
       deep: true,
 
       handler(value) {
+        let {
+          from,
+          to
+        } = this.editor.state.selection;
         this.editor.setContent(value);
+        this.editor.setSelection(from, to);
       }
 
     }
@@ -388,8 +393,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-ab9bce42_0", {
-    source: ".editor[data-v-ab9bce42]{position:relative}.menububble[data-v-ab9bce42]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-ab9bce42]{opacity:1;visibility:visible}",
+  inject("data-v-42716dfc_0", {
+    source: ".editor[data-v-42716dfc]{position:relative}.menububble[data-v-42716dfc]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-42716dfc]{opacity:1;visibility:visible}",
     map: undefined,
     media: undefined
   });
@@ -397,7 +402,7 @@ const __vue_inject_styles__ = function (inject) {
 /* scoped */
 
 
-const __vue_scope_id__ = "data-v-ab9bce42";
+const __vue_scope_id__ = "data-v-42716dfc";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
