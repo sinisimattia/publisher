@@ -79,6 +79,15 @@
             <span>Q</span>
           </slot>
         </button>
+
+        <button
+          type="button"
+          @click="imagePrompt(commands.image)"
+        >
+          <slot name="image">
+            <span>IMG</span>
+          </slot>
+        </button>
       </div>
     </editor-menu-bar>
 
@@ -88,7 +97,7 @@
 
 <script>
 import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from "tiptap";
-import { Bold, Italic, Blockquote, Heading, Link } from "tiptap-extensions";
+import { Bold, Italic, Blockquote, Heading, Link, Image } from "tiptap-extensions";
 
 export default {
   components: {
@@ -110,6 +119,7 @@ export default {
             levels: [1, 2, 3],
           }),
           new Link(),
+          new Image(),
         ],
         onUpdate: ({ getJSON }) => {
           this.$emit("input", getJSON());
@@ -137,6 +147,12 @@ export default {
     setLinkUrl(command, url) {
       command({ href: url })
       this.hideLinkMenu()
+    },
+    imagePrompt(command){
+      const src = prompt('Enter the url of your image here')
+      if (src !== null) {
+        command({ src })
+      }
     },
   },
   watch: {
