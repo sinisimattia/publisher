@@ -118,7 +118,7 @@ var script = {
       editor: new tiptap.Editor({
         extensions: [new tiptapExtensions.Bold(), new tiptapExtensions.Italic(), new tiptapExtensions.Blockquote(), new tiptapExtensions.Heading({
           levels: [1, 2, 3]
-        }), new tiptapExtensions.Link()],
+        }), new tiptapExtensions.Link(), new tiptapExtensions.Image()],
         onUpdate: function onUpdate(_ref) {
           var getJSON = _ref.getJSON;
 
@@ -151,6 +151,15 @@ var script = {
         href: url
       });
       this.hideLinkMenu();
+    },
+    imagePrompt: function imagePrompt(command) {
+      var src = prompt('Enter the url of your image here');
+
+      if (src !== null) {
+        command({
+          src: src
+        });
+      }
     }
   },
   watch: {
@@ -454,7 +463,16 @@ var __vue_render__ = function __vue_render__() {
           on: {
             "click": commands.blockquote
           }
-        }, [_vm._t("blockquote", [_c('span', [_vm._v("Q")])])], 2)])];
+        }, [_vm._t("blockquote", [_c('span', [_vm._v("Q")])])], 2), _vm._v(" "), _c('button', {
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function click($event) {
+              return _vm.imagePrompt(commands.image);
+            }
+          }
+        }, [_vm._t("image", [_c('span', [_vm._v("IMG")])])], 2)])];
       }
     }], null, true)
   }), _vm._ssrNode(" "), _c('editor-content', {
@@ -470,8 +488,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-42716dfc_0", {
-    source: ".editor[data-v-42716dfc]{position:relative}.menububble[data-v-42716dfc]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-42716dfc]{opacity:1;visibility:visible}",
+  inject("data-v-3e2a8f88_0", {
+    source: ".editor[data-v-3e2a8f88]{position:relative}.menububble[data-v-3e2a8f88]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-3e2a8f88]{opacity:1;visibility:visible}",
     map: undefined,
     media: undefined
   });
@@ -479,10 +497,10 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 /* scoped */
 
 
-var __vue_scope_id__ = "data-v-42716dfc";
+var __vue_scope_id__ = "data-v-3e2a8f88";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-42716dfc";
+var __vue_module_identifier__ = "data-v-3e2a8f88";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

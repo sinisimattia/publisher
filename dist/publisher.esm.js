@@ -1,5 +1,5 @@
 import { EditorMenuBar, EditorContent, EditorMenuBubble, Editor } from 'tiptap';
-import { Bold, Italic, Blockquote, Heading, Link } from 'tiptap-extensions';
+import { Bold, Italic, Blockquote, Heading, Link, Image } from 'tiptap-extensions';
 import { Renderer } from 'prosemirror-to-html-js';
 
 //
@@ -18,7 +18,7 @@ var script = {
       editor: new Editor({
         extensions: [new Bold(), new Italic(), new Blockquote(), new Heading({
           levels: [1, 2, 3]
-        }), new Link()],
+        }), new Link(), new Image()],
         onUpdate: ({
           getJSON
         }) => {
@@ -53,6 +53,16 @@ var script = {
         href: url
       });
       this.hideLinkMenu();
+    },
+
+    imagePrompt(command) {
+      const src = prompt('Enter the url of your image here');
+
+      if (src !== null) {
+        command({
+          src
+        });
+      }
     }
 
   },
@@ -377,7 +387,16 @@ var __vue_render__ = function () {
           on: {
             "click": commands.blockquote
           }
-        }, [_vm._t("blockquote", [_c('span', [_vm._v("Q")])])], 2)])];
+        }, [_vm._t("blockquote", [_c('span', [_vm._v("Q")])])], 2), _vm._v(" "), _c('button', {
+          attrs: {
+            "type": "button"
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.imagePrompt(commands.image);
+            }
+          }
+        }, [_vm._t("image", [_c('span', [_vm._v("IMG")])])], 2)])];
       }
     }], null, true)
   }), _vm._v(" "), _c('editor-content', {
@@ -393,8 +412,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-42716dfc_0", {
-    source: ".editor[data-v-42716dfc]{position:relative}.menububble[data-v-42716dfc]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-42716dfc]{opacity:1;visibility:visible}",
+  inject("data-v-3e2a8f88_0", {
+    source: ".editor[data-v-3e2a8f88]{position:relative}.menububble[data-v-3e2a8f88]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-3e2a8f88]{opacity:1;visibility:visible}",
     map: undefined,
     media: undefined
   });
@@ -402,7 +421,7 @@ const __vue_inject_styles__ = function (inject) {
 /* scoped */
 
 
-const __vue_scope_id__ = "data-v-42716dfc";
+const __vue_scope_id__ = "data-v-3e2a8f88";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
