@@ -30,21 +30,11 @@
       <div class="commands">
         <button
           type="button"
-          :class="{ 'is-active': isActive.heading({level: 1}) }"
-          @click="commands.heading({level: 1})"
-        >
-          <slot name="h1">
-            <span>H1</span>
-          </slot>
-        </button>
-
-        <button
-          type="button"
           :class="{ 'is-active': isActive.heading({level: 2}) }"
           @click="commands.heading({level: 2})"
         >
-          <slot name="h2">
-            <span>H2</span>
+          <slot name="title">
+            <span>Title</span>
           </slot>
         </button>
 
@@ -53,8 +43,18 @@
           :class="{ 'is-active': isActive.heading({level: 3}) }"
           @click="commands.heading({level: 3})"
         >
-          <slot name="h3">
-            <span>H3</span>
+          <slot name="subtitle">
+            <span>Subtitle</span>
+          </slot>
+        </button>
+
+        <button
+          type="button"
+          :class="{ 'is-active': isActive.heading({level: 4}) }"
+          @click="commands.heading({level: 4})"
+        >
+          <slot name="sectionTitle">
+            <span>Section Title</span>
           </slot>
         </button>
 
@@ -116,7 +116,7 @@ export default {
           new Italic(),
           new Blockquote(),
           new Heading({
-            levels: [1, 2, 3],
+            levels: [2, 3, 4],
           }),
           new Link(),
           new Image(),
