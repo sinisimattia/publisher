@@ -5,7 +5,7 @@ Built on top of [TipTap](https://tiptap.dev). Kudos to them as well.
 
 ### Install
 
-Get *Publisher* as an NPM package:
+Get *vue-publisher* as an NPM package:
 
 ```bash
 npm i -S vue-publisher
