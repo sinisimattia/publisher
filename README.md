@@ -1,7 +1,12 @@
 # vue-publisher 🗞️
-## A rich-text editor for Vue.js
+## A pre-packaged zero-config collection of amazing tools for managing content.
 
-Built on top of [TipTap](https://tiptap.dev). Kudos to them as well.
+This package includes:
+- [TipTap](https://tiptap.dev)
+- Reader (Original)
+- ListEditor (Original)
+
+> Please go support tha packages' respective creators.
 
 ### Install
 
