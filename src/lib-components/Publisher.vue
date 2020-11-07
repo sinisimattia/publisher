@@ -108,10 +108,18 @@
             <span>IMG</span>
           </slot>
         </button>
+
+        <button type="button" @click="showVideoModal(commands.iframe)">
+          <slot name="embed">
+            <span>&lt;/&gt;</span>
+          </slot>
+        </button>
       </div>
     </editor-menu-bar>
 
     <editor-content class="content" :editor="editor" />
+
+    <VideoModal ref="videoModal" @onConfirm="addCommand"/>
   </div>
 </template>
 
@@ -125,12 +133,15 @@ import {
   Link,
   Image,
 } from "tiptap-extensions";
+import IFrame from "@/custom-nodes/IFrame";
+import VideoModal from "@/internal-components/VideoModal"
 
 export default {
   components: {
     EditorMenuBar,
     EditorContent,
     EditorMenuBubble,
+    VideoModal,
   },
   props: {
     value: Object,
@@ -147,6 +158,7 @@ export default {
           }),
           new Link(),
           new Image(),
+          new IFrame(),
         ],
         onUpdate: ({ getJSON }) => {
           this.$emit("input", getJSON());
@@ -179,6 +191,14 @@ export default {
       const src = prompt("Enter the url of your image here");
       if (src !== null) {
         command({ src });
+      }
+    },
+    showVideoModal(command) {
+      this.$refs.videoModal.showModal(command);
+    },
+    addCommand(data) {
+      if (data.command !== null) {
+        data.command(data.data);
       }
     },
   },
