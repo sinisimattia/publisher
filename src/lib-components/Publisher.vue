@@ -113,13 +113,15 @@
           <slot name="embed">
             <span>&lt;/&gt;</span>
           </slot>
+
+          <URLModal ref="urlModal" @onConfirm="addCommand">
+            <slot name="createEmbed"></slot>
+          </URLModal>
         </button>
       </div>
     </editor-menu-bar>
 
     <editor-content class="content" :editor="editor" />
-
-    <URLModal ref="urlModal" @onConfirm="addCommand"/>
   </div>
 </template>
 
