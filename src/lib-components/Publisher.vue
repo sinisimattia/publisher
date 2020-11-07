@@ -119,7 +119,7 @@
 
     <editor-content class="content" :editor="editor" />
 
-    <VideoModal ref="videoModal" @onConfirm="addCommand"/>
+    <URLModal ref="urlModal" @onConfirm="addCommand"/>
   </div>
 </template>
 
@@ -134,14 +134,14 @@ import {
   Image,
 } from "tiptap-extensions";
 import IFrame from "@/custom-nodes/IFrame";
-import VideoModal from "@/internal-components/VideoModal"
+import URLModal from "@/internal-components/URLModal"
 
 export default {
   components: {
     EditorMenuBar,
     EditorContent,
     EditorMenuBubble,
-    VideoModal,
+    URLModal,
   },
   props: {
     value: Object,
@@ -194,7 +194,7 @@ export default {
       }
     },
     showVideoModal(command) {
-      this.$refs.videoModal.showModal(command);
+      this.$refs.urlModal.showModal(command);
     },
     addCommand(data) {
       if (data.command !== null) {
