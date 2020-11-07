@@ -109,15 +109,18 @@
           </slot>
         </button>
 
-        <button type="button" @click="showVideoModal(commands.iframe)">
-          <slot name="embed">
-            <span>&lt;/&gt;</span>
-          </slot>
+        <span>
+          <button type="button" @click="showVideoModal(commands.iframe)">
+            <slot name="embed">
+              <span>&lt;/&gt;</span>
+            </slot>
+          </button>
 
           <URLModal ref="urlModal" @onConfirm="addCommand">
             <slot name="createEmbed"></slot>
           </URLModal>
-        </button>
+        </span>
+        
       </div>
     </editor-menu-bar>
 
