@@ -1,8 +1,8 @@
-import { Node, EditorMenuBar, EditorContent, EditorMenuBubble, Editor } from 'tiptap';
+import { Node as Node$1, EditorMenuBar, EditorContent, EditorMenuBubble, Editor } from 'tiptap';
 import { Bold, Italic, Blockquote, Heading, Link, Image } from 'tiptap-extensions';
-import { Renderer } from 'prosemirror-to-html-js';
+import prosemirrorToHtmlJs, { Renderer } from 'prosemirror-to-html-js';
 
-class IFrame extends Node {
+class IFrame extends Node$1 {
   get name() {
     return "iframe";
   }
@@ -624,6 +624,27 @@ const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__$1
 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, createInjector, undefined, undefined);
 
+const Node = prosemirrorToHtmlJs.Node;
+
+class IFrame$1 extends Node {
+  matching() {
+    return this.node.type === "iframe";
+  }
+
+  tag() {
+    return {
+      tag: "iframe",
+      attrs: {
+        "src": this.node.attrs.src,
+        "frameborder": this.node.attrs.frameborder,
+        "allowfullscreen": this.node.attrs.allowfullscreen,
+        "allow": this.node.attrs.allow
+      }
+    };
+  }
+
+}
+
 //
 var script$2 = {
   props: {
@@ -635,6 +656,10 @@ var script$2 = {
       renderer: new Renderer(),
       result: String
     };
+  },
+
+  mounted() {
+    this.renderer.addNode(IFrame$1);
   },
 
   watch: {
