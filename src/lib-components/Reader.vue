@@ -4,6 +4,7 @@
 
 <script>
 import { Renderer } from 'prosemirror-to-html-js'
+import IFrame from '@/custom-nodes/reader/IFrame'
 
 export default {
     props: {
@@ -14,6 +15,9 @@ export default {
             renderer:  new Renderer(),
             result: String,
         }
+    },
+    mounted() {
+        this.renderer.addNode(IFrame)
     },
     watch:{
         value: {
