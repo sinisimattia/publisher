@@ -1,4 +1,4 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:true});var tiptap=require('tiptap'),tiptapExtensions=require('tiptap-extensions'),prosemirrorToHtmlJs=require('prosemirror-to-html-js');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var prosemirrorToHtmlJs__default=/*#__PURE__*/_interopDefaultLegacy(prosemirrorToHtmlJs);function _classCallCheck(instance, Constructor) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});var tiptap=require('tiptap'),tiptapExtensions=require('tiptap-extensions'),prosemirrorToHtmlJs=require('prosemirror-to-html-js');function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
@@ -779,9 +779,7 @@ var __vue_is_functional_template__$1 = false;
 var __vue_component__$1 = /*#__PURE__*/normalizeComponent({
   render: __vue_render__$1,
   staticRenderFns: __vue_staticRenderFns__$1
-}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, createInjectorSSR, undefined);var Node = prosemirrorToHtmlJs__default['default'].Node;
-
-var IFrame$1 = /*#__PURE__*/function (_Node) {
+}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, createInjectorSSR, undefined);var IFrame$1 = /*#__PURE__*/function (_Node) {
   _inherits(IFrame, _Node);
 
   var _super = _createSuper(IFrame);
@@ -813,7 +811,7 @@ var IFrame$1 = /*#__PURE__*/function (_Node) {
   }]);
 
   return IFrame;
-}(Node);//
+}(prosemirrorToHtmlJs.Node);//
 var script$2 = {
   props: {
     value: Object

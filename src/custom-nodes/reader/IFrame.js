@@ -1,4 +1,4 @@
-const Node = require("prosemirror-to-html-js").Node;
+import { Node } from "prosemirror-to-html-js";
  
 export default class IFrame extends Node {
     matching () {
