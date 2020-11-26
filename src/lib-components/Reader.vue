@@ -1,30 +1,27 @@
 <template>
-    <div class="content" v-html="result"></div>
+    <Publisher v-model="result" :editable="false"/>
 </template>
 
 <script>
-import { Renderer } from 'prosemirror-to-html-js'
-import IFrame from '@/custom-nodes/reader/IFrame'
-
-const renderer = new Renderer()
+import Publisher from "./Publisher"
 
 export default {
+    components: {
+        Publisher,
+    },
     props: {
         value: Object,
     },
     data(){
         return {
-            result: String,
+            result: {},
         }
-    },
-    mounted() {
-        renderer.addNode(IFrame)
     },
     watch:{
         value: {
             immediate: true,
             handler(value){
-                this.result = renderer.render(value)
+                this.result = value
             }
         }
     }
