@@ -644,6 +644,7 @@ class IFrame$1 extends Node$1 {
 }
 
 //
+const renderer = new Renderer();
 var script$2 = {
   props: {
     value: Object
@@ -651,13 +652,12 @@ var script$2 = {
 
   data() {
     return {
-      renderer: new Renderer(),
       result: String
     };
   },
 
   mounted() {
-    this.renderer.addNode(IFrame$1);
+    renderer.addNode(IFrame$1);
   },
 
   watch: {
@@ -665,7 +665,7 @@ var script$2 = {
       immediate: true,
 
       handler(value) {
-        this.result = this.renderer.render(value);
+        this.result = renderer.render(value);
       }
 
     }

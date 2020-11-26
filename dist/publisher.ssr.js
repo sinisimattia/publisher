@@ -812,24 +812,24 @@ var __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 
   return IFrame;
 }(prosemirrorToHtmlJs.Node);//
+var renderer = new prosemirrorToHtmlJs.Renderer();
 var script$2 = {
   props: {
     value: Object
   },
   data: function data() {
     return {
-      renderer: new prosemirrorToHtmlJs.Renderer(),
       result: String
     };
   },
   mounted: function mounted() {
-    this.renderer.addNode(IFrame$1);
+    renderer.addNode(IFrame$1);
   },
   watch: {
     value: {
       immediate: true,
       handler: function handler(value) {
-        this.result = this.renderer.render(value);
+        this.result = renderer.render(value);
       }
     }
   }
@@ -861,7 +861,7 @@ var __vue_inject_styles__$2 = undefined;
 var __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$2 = "data-v-64f237ea";
+var __vue_module_identifier__$2 = "data-v-efada390";
 /* functional template */
 
 var __vue_is_functional_template__$2 = false;
