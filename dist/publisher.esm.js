@@ -22285,6 +22285,9 @@ var __vue_render__$1 = function () {
           class: {
             'is-active': isActive.link()
           },
+          attrs: {
+            "type": "button"
+          },
           on: {
             "click": function ($event) {
               _vm.showLinkMenu(getMarkAttrs('link'));
@@ -22292,7 +22295,7 @@ var __vue_render__$1 = function () {
           }
         }, [_c('span', [_vm._t("link", [_vm._v("Add link")])], 2)])]], 2)];
       }
-    }], null, false, 2073955336)
+    }], null, false, 3189305068)
   }), _vm._v(" "), _c('editor-menu-bar', {
     attrs: {
       "editor": _vm.editor
@@ -22423,8 +22426,8 @@ var __vue_staticRenderFns__$1 = [];
 
 const __vue_inject_styles__$1 = function (inject) {
   if (!inject) return;
-  inject("data-v-3e309edc_0", {
-    source: ".editor[data-v-3e309edc]{position:relative}.menububble[data-v-3e309edc]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-3e309edc]{opacity:1;visibility:visible}",
+  inject("data-v-9d03f13c_0", {
+    source: ".editor[data-v-9d03f13c]{position:relative}.menububble[data-v-9d03f13c]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-9d03f13c]{opacity:1;visibility:visible}",
     map: undefined,
     media: undefined
   });
@@ -22432,7 +22435,7 @@ const __vue_inject_styles__$1 = function (inject) {
 /* scoped */
 
 
-const __vue_scope_id__$1 = "data-v-3e309edc";
+const __vue_scope_id__$1 = "data-v-9d03f13c";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;

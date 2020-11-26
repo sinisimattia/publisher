@@ -29,6 +29,7 @@
           <template v-else>
             <button
               class="button"
+              type="button"
               @click="showLinkMenu(getMarkAttrs('link'))"
               :class="{ 'is-active': isActive.link() }"
             >

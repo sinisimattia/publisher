@@ -22246,7 +22246,7 @@ var __vue_render__$1 = function __vue_render__() {
       editor: _vm.editable,
       content: !_vm.editable
     }
-  }, [_vm.editable ? _vm._ssrNode("<div data-v-3e309edc>", "</div>", [_c('editor-menu-bubble', {
+  }, [_vm.editable ? _vm._ssrNode("<div data-v-9d03f13c>", "</div>", [_c('editor-menu-bubble', {
     staticClass: "menububble",
     attrs: {
       "editor": _vm.editor
@@ -22311,6 +22311,9 @@ var __vue_render__$1 = function __vue_render__() {
           class: {
             'is-active': isActive.link()
           },
+          attrs: {
+            "type": "button"
+          },
           on: {
             "click": function click($event) {
               _vm.showLinkMenu(getMarkAttrs('link'));
@@ -22318,7 +22321,7 @@ var __vue_render__$1 = function __vue_render__() {
           }
         }, [_c('span', [_vm._t("link", [_vm._v("Add link")])], 2)])]], 2)];
       }
-    }], null, false, 2073955336)
+    }], null, false, 3189305068)
   }), _vm._ssrNode(" "), _c('editor-menu-bar', {
     attrs: {
       "editor": _vm.editor
@@ -22449,8 +22452,8 @@ var __vue_staticRenderFns__$1 = [];
 
 var __vue_inject_styles__$1 = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-3e309edc_0", {
-    source: ".editor[data-v-3e309edc]{position:relative}.menububble[data-v-3e309edc]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-3e309edc]{opacity:1;visibility:visible}",
+  inject("data-v-9d03f13c_0", {
+    source: ".editor[data-v-9d03f13c]{position:relative}.menububble[data-v-9d03f13c]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-9d03f13c]{opacity:1;visibility:visible}",
     map: undefined,
     media: undefined
   });
@@ -22458,10 +22461,10 @@ var __vue_inject_styles__$1 = function __vue_inject_styles__(inject) {
 /* scoped */
 
 
-var __vue_scope_id__$1 = "data-v-3e309edc";
+var __vue_scope_id__$1 = "data-v-9d03f13c";
 /* module identifier */
 
-var __vue_module_identifier__$1 = "data-v-3e309edc";
+var __vue_module_identifier__$1 = "data-v-9d03f13c";
 /* functional template */
 
 var __vue_is_functional_template__$1 = false;
