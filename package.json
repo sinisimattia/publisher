@@ -37,7 +37,6 @@
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
   "dependencies": {
-    "prosemirror-to-html-js": "^1.0.2",
     "tiptap": "^1.29.6",
     "tiptap-extensions": "^1.32.7"
   },
