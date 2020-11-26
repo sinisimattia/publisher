@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Publisher from "./Publisher"
+import Publisher from "@/lib-components/Publisher"
 
 export default {
     components: {
