@@ -6,24 +6,25 @@
 import { Renderer } from 'prosemirror-to-html-js'
 import IFrame from '@/custom-nodes/reader/IFrame'
 
+const renderer = new Renderer()
+
 export default {
     props: {
         value: Object,
     },
     data(){
         return {
-            renderer:  new Renderer(),
             result: String,
         }
     },
     mounted() {
-        this.renderer.addNode(IFrame)
+        renderer.addNode(IFrame)
     },
     watch:{
         value: {
             immediate: true,
             handler(value){
-                this.result = this.renderer.render(value)
+                this.result = renderer.render(value)
             }
         }
     }
