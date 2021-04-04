@@ -21864,47 +21864,94 @@ class IFrame extends Node$2 {
 }
 
 //
-//
-//
-//
-//
-//
-//
-//
 var script = {
+  components: {
+    EditorMenuBar,
+    EditorContent,
+    EditorMenuBubble
+  },
+  props: {
+    value: Object,
+    editable: {
+      type: Boolean,
+      default: true
+    }
+  },
+
   data() {
     return {
-      url: "",
-      command: null,
-      show: false
+      editor: new Editor({
+        editable: this.editable,
+        extensions: [new Bold(), new Italic(), new Blockquote(), new Heading({
+          levels: [2, 3, 4]
+        }), new Link(), new Image(), new IFrame()],
+        onUpdate: ({
+          getJSON
+        }) => {
+          this.$emit("input", getJSON());
+        }
+      }),
+      linkUrl: null,
+      linkMenuIsActive: false
     };
   },
 
+  beforeDestroy() {
+    this.editor.destroy();
+  },
+
   methods: {
-    showModal(command) {
-      this.command = command;
-      this.show = true;
+    showLinkMenu(attrs) {
+      this.linkUrl = attrs.href;
+      this.linkMenuIsActive = true;
+      this.$nextTick(() => {
+        this.$refs.linkInput.focus();
+      });
     },
 
-    insert() {
-      if (this.url && this.pattern.test(this.url)) {
-        const data = {
-          command: this.command,
-          data: {
-            src: this.url
-          }
-        };
-        this.$emit("onConfirm", data);
-        this.url = '';
-        this.show = false;
+    hideLinkMenu() {
+      this.linkUrl = null;
+      this.linkMenuIsActive = false;
+    },
+
+    setLinkUrl(command, url) {
+      command({
+        href: url
+      });
+      this.hideLinkMenu();
+    },
+
+    linkPrompt(command) {
+      const src = prompt("Enter the url of your image here");
+
+      if (src !== null) {
+        command({
+          src
+        });
+      }
+    },
+
+    addCommand(data) {
+      if (data.command !== null) {
+        data.command(data.data);
       }
     }
 
   },
-  props: {
-    pattern: {
-      type: RegExp,
-      default: () => /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
+  watch: {
+    value: {
+      immediate: true,
+      deep: true,
+
+      handler(value) {
+        let {
+          from,
+          to
+        } = this.editor.state.selection;
+        this.editor.setContent(value);
+        this.editor.setSelection(from, to);
+      }
+
     }
   }
 };
@@ -21984,173 +22031,6 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
     return script;
 }
 
-/* script */
-const __vue_script__ = script;
-/* template */
-
-var __vue_render__ = function () {
-  var _vm = this;
-
-  var _h = _vm.$createElement;
-
-  var _c = _vm._self._c || _h;
-
-  return _vm.show ? _c('div', {
-    key: _vm.show,
-    staticClass: "modal"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.url,
-      expression: "url"
-    }],
-    staticClass: "input",
-    domProps: {
-      "value": _vm.url
-    },
-    on: {
-      "input": function ($event) {
-        if ($event.target.composing) {
-          return;
-        }
-
-        _vm.url = $event.target.value;
-      }
-    }
-  }), _vm._v(" "), _c('button', {
-    staticClass: "button",
-    attrs: {
-      "pattern": _vm.pattern
-    },
-    on: {
-      "click": _vm.insert
-    }
-  }, [_vm._t("default", [_vm._v("Create element")])], 2)]) : _vm._e();
-};
-
-var __vue_staticRenderFns__ = [];
-/* style */
-
-const __vue_inject_styles__ = undefined;
-/* scoped */
-
-const __vue_scope_id__ = undefined;
-/* module identifier */
-
-const __vue_module_identifier__ = undefined;
-/* functional template */
-
-const __vue_is_functional_template__ = false;
-/* style inject */
-
-/* style inject SSR */
-
-/* style inject shadow dom */
-
-const __vue_component__ = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__,
-  staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
-
-//
-var script$1 = {
-  components: {
-    EditorMenuBar,
-    EditorContent,
-    EditorMenuBubble,
-    URLModal: __vue_component__
-  },
-  props: {
-    value: Object,
-    editable: {
-      type: Boolean,
-      default: true
-    }
-  },
-
-  data() {
-    return {
-      editor: new Editor({
-        editable: this.editable,
-        extensions: [new Bold(), new Italic(), new Blockquote(), new Heading({
-          levels: [2, 3, 4]
-        }), new Link(), new Image(), new IFrame()],
-        onUpdate: ({
-          getJSON
-        }) => {
-          this.$emit("input", getJSON());
-        }
-      }),
-      linkUrl: null,
-      linkMenuIsActive: false
-    };
-  },
-
-  beforeDestroy() {
-    this.editor.destroy();
-  },
-
-  methods: {
-    showLinkMenu(attrs) {
-      this.linkUrl = attrs.href;
-      this.linkMenuIsActive = true;
-      this.$nextTick(() => {
-        this.$refs.linkInput.focus();
-      });
-    },
-
-    hideLinkMenu() {
-      this.linkUrl = null;
-      this.linkMenuIsActive = false;
-    },
-
-    setLinkUrl(command, url) {
-      command({
-        href: url
-      });
-      this.hideLinkMenu();
-    },
-
-    imagePrompt(command) {
-      const src = prompt("Enter the url of your image here");
-
-      if (src !== null) {
-        command({
-          src
-        });
-      }
-    },
-
-    showVideoModal(command) {
-      this.$refs.urlModal.showModal(command);
-    },
-
-    addCommand(data) {
-      if (data.command !== null) {
-        data.command(data.data);
-      }
-    }
-
-  },
-  watch: {
-    value: {
-      immediate: true,
-      deep: true,
-
-      handler(value) {
-        let {
-          from,
-          to
-        } = this.editor.state.selection;
-        this.editor.setContent(value);
-        this.editor.setSelection(from, to);
-      }
-
-    }
-  }
-};
-
 const isOldIE = typeof navigator !== 'undefined' &&
     /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
 function createInjector(context) {
@@ -22205,10 +22085,10 @@ function addStyle(id, css) {
 }
 
 /* script */
-const __vue_script__$1 = script$1;
+const __vue_script__ = script;
 /* template */
 
-var __vue_render__$1 = function () {
+var __vue_render__ = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -22393,7 +22273,7 @@ var __vue_render__$1 = function () {
           },
           on: {
             "click": function ($event) {
-              return _vm.imagePrompt(commands.image);
+              return _vm.linkPrompt(commands.image);
             }
           }
         }, [_vm._t("image", [_c('span', [_vm._v("IMG")])])], 2), _vm._v(" "), _c('span', [_c('button', {
@@ -22402,15 +22282,10 @@ var __vue_render__$1 = function () {
           },
           on: {
             "click": function ($event) {
-              return _vm.showVideoModal(commands.iframe);
+              return _vm.linkPrompt(commands.iframe);
             }
           }
-        }, [_vm._t("embed", [_c('span', [_vm._v("</>")])])], 2), _vm._v(" "), _c('URLModal', {
-          ref: "urlModal",
-          on: {
-            "onConfirm": _vm.addCommand
-          }
-        }, [_vm._t("createEmbed")], 2)], 1)])];
+        }, [_vm._t("embed", [_c('span', [_vm._v("</>")])])], 2)])])];
       }
     }], null, true)
   })], 1) : _vm._e(), _vm._v(" "), _c('editor-content', {
@@ -22421,13 +22296,13 @@ var __vue_render__$1 = function () {
   })], 1);
 };
 
-var __vue_staticRenderFns__$1 = [];
+var __vue_staticRenderFns__ = [];
 /* style */
 
-const __vue_inject_styles__$1 = function (inject) {
+const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-9d03f13c_0", {
-    source: ".editor[data-v-9d03f13c]{position:relative}.menububble[data-v-9d03f13c]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-9d03f13c]{opacity:1;visibility:visible}",
+  inject("data-v-3a575c86_0", {
+    source: ".editor[data-v-3a575c86]{position:relative}.menububble[data-v-3a575c86]{position:absolute;z-index:20;transform:translateX(-50%);visibility:hidden;opacity:0}.menububble.is-active[data-v-3a575c86]{opacity:1;visibility:visible}",
     map: undefined,
     media: undefined
   });
@@ -22435,26 +22310,26 @@ const __vue_inject_styles__$1 = function (inject) {
 /* scoped */
 
 
-const __vue_scope_id__$1 = "data-v-9d03f13c";
+const __vue_scope_id__ = "data-v-3a575c86";
 /* module identifier */
 
-const __vue_module_identifier__$1 = undefined;
+const __vue_module_identifier__ = undefined;
 /* functional template */
 
-const __vue_is_functional_template__$1 = false;
+const __vue_is_functional_template__ = false;
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__$1,
-  staticRenderFns: __vue_staticRenderFns__$1
-}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, createInjector, undefined, undefined);
+const __vue_component__ = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__,
+  staticRenderFns: __vue_staticRenderFns__
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
 
 //
-var script$2 = {
+var script$1 = {
   components: {
-    Publisher: __vue_component__$1
+    Publisher: __vue_component__
   },
   props: {
     value: Object
@@ -22479,10 +22354,10 @@ var script$2 = {
 };
 
 /* script */
-const __vue_script__$2 = script$2;
+const __vue_script__$1 = script$1;
 /* template */
 
-var __vue_render__$2 = function () {
+var __vue_render__$1 = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -22503,29 +22378,29 @@ var __vue_render__$2 = function () {
   });
 };
 
-var __vue_staticRenderFns__$2 = [];
+var __vue_staticRenderFns__$1 = [];
 /* style */
 
-const __vue_inject_styles__$2 = undefined;
+const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-const __vue_scope_id__$2 = undefined;
+const __vue_scope_id__$1 = undefined;
 /* module identifier */
 
-const __vue_module_identifier__$2 = undefined;
+const __vue_module_identifier__$1 = undefined;
 /* functional template */
 
-const __vue_is_functional_template__$2 = false;
+const __vue_is_functional_template__$1 = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__$2,
-  staticRenderFns: __vue_staticRenderFns__$2
-}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
+const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__$1,
+  staticRenderFns: __vue_staticRenderFns__$1
+}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
 
 //
 //
@@ -22588,7 +22463,7 @@ const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
 //
 //
 //
-var script$3 = {
+var script$2 = {
   props: {
     value: Array,
     default: {
@@ -22668,10 +22543,10 @@ var script$3 = {
 };
 
 /* script */
-const __vue_script__$3 = script$3;
+const __vue_script__$2 = script$2;
 /* template */
 
-var __vue_render__$3 = function () {
+var __vue_render__$2 = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -22788,37 +22663,37 @@ var __vue_render__$3 = function () {
   }, [_vm._v("Add")])])], 2)]);
 };
 
-var __vue_staticRenderFns__$3 = [];
+var __vue_staticRenderFns__$2 = [];
 /* style */
 
-const __vue_inject_styles__$3 = undefined;
+const __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-const __vue_scope_id__$3 = undefined;
+const __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-const __vue_module_identifier__$3 = undefined;
+const __vue_module_identifier__$2 = undefined;
 /* functional template */
 
-const __vue_is_functional_template__$3 = false;
+const __vue_is_functional_template__$2 = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-const __vue_component__$3 = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__$3,
-  staticRenderFns: __vue_staticRenderFns__$3
-}, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, false, undefined, undefined, undefined);
+const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__$2,
+  staticRenderFns: __vue_staticRenderFns__$2
+}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
 
 /* eslint-disable import/prefer-default-export */
 
 var components = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  Publisher: __vue_component__$1,
-  Reader: __vue_component__$2,
-  ListEditor: __vue_component__$3
+  Publisher: __vue_component__,
+  Reader: __vue_component__$1,
+  ListEditor: __vue_component__$2
 });
 
 // Import vue components
@@ -22839,4 +22714,4 @@ const plugin = {
 }; // To auto-install on non-es builds, when vue is found
 
 export default plugin;
-export { __vue_component__$3 as ListEditor, __vue_component__$1 as Publisher, __vue_component__$2 as Reader };
+export { __vue_component__$2 as ListEditor, __vue_component__ as Publisher, __vue_component__$1 as Reader };
