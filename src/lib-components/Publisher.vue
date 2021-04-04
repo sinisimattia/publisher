@@ -108,22 +108,18 @@
             </slot>
           </button>
 
-          <button type="button" @click="imagePrompt(commands.image)">
+          <button type="button" @click="linkPrompt(commands.image)">
             <slot name="image">
               <span>IMG</span>
             </slot>
           </button>
 
           <span>
-            <button type="button" @click="showVideoModal(commands.iframe)">
+            <button type="button" @click="linkPrompt(commands.iframe)">
               <slot name="embed">
                 <span>&lt;/&gt;</span>
               </slot>
             </button>
-
-            <URLModal ref="urlModal" @onConfirm="addCommand">
-              <slot name="createEmbed"></slot>
-            </URLModal>
           </span>
         </div>
       </editor-menu-bar>
@@ -144,14 +140,12 @@ import {
   Image,
 } from "tiptap-extensions";
 import IFrame from "@/custom-nodes/IFrame";
-import URLModal from "@/internal-components/URLModal";
 
 export default {
   components: {
     EditorMenuBar,
     EditorContent,
     EditorMenuBubble,
-    URLModal,
   },
   props: {
     value: Object,
@@ -202,14 +196,11 @@ export default {
       command({ href: url });
       this.hideLinkMenu();
     },
-    imagePrompt(command) {
+    linkPrompt(command) {
       const src = prompt("Enter the url of your image here");
       if (src !== null) {
         command({ src });
       }
-    },
-    showVideoModal(command) {
-      this.$refs.urlModal.showModal(command);
     },
     addCommand(data) {
       if (data.command !== null) {
